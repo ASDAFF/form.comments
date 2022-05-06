@@ -7,12 +7,12 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-if(!CModule::IncludeModule("soobwa.comments")){
+if(!CModule::IncludeModule("form.comments")){
     /*
     * Сообщение при отсутствии модуля
     * */
     CAdminMessage::ShowMessage(array(
-        "MESSAGE"   =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_ERROR_MODULE'),
+        "MESSAGE"   =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_ERROR_MODULE'),
         "TYPE"      =>  "ERROR",
     ));
     die();
@@ -23,20 +23,20 @@ if(!CModule::IncludeModule("soobwa.comments")){
 if(!empty($_REQUEST['event']) and !empty($_REQUEST['id_message'])){
     switch ($_REQUEST['event']){
         case 'delete':
-            \Soobwa\Comments\Api::statusDel(htmlspecialchars($_REQUEST['id_message']), true);
+            \Form\Comments\Api::statusDel(htmlspecialchars($_REQUEST['id_message']), true);
             break;
         case 'active':
-            \Soobwa\Comments\Api::statusActive(htmlspecialchars($_REQUEST['id_message']), true);
+            \Form\Comments\Api::statusActive(htmlspecialchars($_REQUEST['id_message']), true);
             break;
         case 'unactive':
-            \Soobwa\Comments\Api::statusActive(htmlspecialchars($_REQUEST['id_message']), false);
+            \Form\Comments\Api::statusActive(htmlspecialchars($_REQUEST['id_message']), false);
             break;
     }
 
     /*
      * После выполнения возврашаем пользователя обратно
      * */
-    LocalRedirect('soobwa_comments_list.php?lang='.LANGUAGE_ID.'&id_group='.htmlspecialchars($_REQUEST['id_group']));
+    LocalRedirect('form_comments_list.php?lang='.LANGUAGE_ID.'&id_group='.htmlspecialchars($_REQUEST['id_group']));
 }
 
 /*
@@ -45,9 +45,9 @@ if(!empty($_REQUEST['event']) and !empty($_REQUEST['id_message'])){
 $aContext = array();
 if(!empty($_REQUEST['id_group'])) {
     $aContext[] = array(
-        "TEXT" => Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_MENU_BACK_TEXT'),
-        "TITLE" => Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_MENU_BACK_TITLE'),
-        "LINK" => "soobwa_comments_list.php?lang=" . LANGUAGE_ID,
+        "TEXT" => Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_MENU_BACK_TEXT'),
+        "TITLE" => Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_MENU_BACK_TITLE'),
+        "LINK" => "form_comments_list.php?lang=" . LANGUAGE_ID,
         "ICON" => "btn_list",
     );
 }
@@ -75,19 +75,19 @@ if(empty($_REQUEST['id_group'])){
     $lAdmin->AddHeaders(array(
         array(
             "id"        =>  "ID",
-            "content"   =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_ID'),
+            "content"   =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_ID'),
             "sort"      =>  "id",
             "default"   =>  true,
         ),
         array(
             "id"        =>  "COUNT_MASSAGE",
-            "content"   =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_COUNT_MASSAGE'),
+            "content"   =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_COUNT_MASSAGE'),
             "sort"      =>  "count_massage",
             "default"   =>  true,
         ),
         array(
             "id"        =>  "COUNT_MODERATION",
-            "content"   =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_COUNT_MODERATION'),
+            "content"   =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_COUNT_MODERATION'),
             "sort"      =>  "count_moderation",
             "default"   =>  true,
         ),
@@ -98,7 +98,7 @@ if(empty($_REQUEST['id_group'])){
      * */
     $arGroups = array();
 
-    $result = \Soobwa\Comments\Api::getList(array('ID', 'ID_CHAT', 'ACTIVE'), array('!DELETE' => '1'), array('ID_CHAT'=>'ASC'));
+    $result = \Form\Comments\Api::getList(array('ID', 'ID_CHAT', 'ACTIVE'), array('!DELETE' => '1'), array('ID_CHAT'=>'ASC'));
     while ($res = $result->fetch()) {
 
         /*
@@ -161,7 +161,7 @@ if(empty($_REQUEST['id_group'])){
         $arActions[] = array(
             "ICON"      =>  "edit",
             "DEFAULT"   =>  true,
-            "TEXT"      =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_ACTION_EDIT_TEXT'),
+            "TEXT"      =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_ACTION_EDIT_TEXT'),
             "ACTION"    =>  $lAdmin->ActionRedirect('?lang='.LANGUAGE_ID.'&id_group='.htmlspecialchars($keyGroup))
         );
 
@@ -186,39 +186,39 @@ if(empty($_REQUEST['id_group'])){
     $lAdmin->AddHeaders(array(
         array(
             "id"        =>  "ID",
-            "content"   =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_ID'),
+            "content"   =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_ID'),
             "sort"      =>  "id",
             "default"   =>  true,
         ),
         array(
             "id"        =>  "ID_CHAT",
-            "content"   =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_ID_CHAT'),
+            "content"   =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_ID_CHAT'),
             "sort"      =>  "id_chat",
             "align"     =>  "center",
             "default"   =>  true,
         ),
         array(
             "id"        =>  "ACTIVE",
-            "content"   =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_ACTIVE'),
+            "content"   =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_ACTIVE'),
             "sort"      =>  "active",
             "default"   =>  true,
         ),
         array(
             "id"        =>  "ID_USER",
-            "content"   =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_ID_USER'),
+            "content"   =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_ID_USER'),
             "sort"      =>  "id_user",
             "default"   =>  true,
         ),
         array(
             "id"        =>  "DATA",
-            "content"   =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_DATA'),
+            "content"   =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_DATA'),
             "sort"      =>  "data",
             "align"     =>  "center",
             "default"   =>  true,
         ),
         array(
             "id"        =>  "TEXT",
-            "content"   =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_TEXT'),
+            "content"   =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_TEXT'),
             "sort"      =>  "text",
             "default"   =>  true,
         ),
@@ -229,7 +229,7 @@ if(empty($_REQUEST['id_group'])){
      * */
     $arMessages = array();
 
-    $result = \Soobwa\Comments\Api::getList(
+    $result = \Form\Comments\Api::getList(
         array('ID', 'ID_CHAT', 'ACTIVE', 'ID_USER', 'DATA', 'TEXT'),
         array('ID_CHAT'=>htmlspecialchars($_REQUEST['id_group']), '!DELETE' => '1'),
         array('ID'=>'ASC')
@@ -258,9 +258,9 @@ if(empty($_REQUEST['id_group'])){
                 case 'ACTIVE':
                     $active = '';
                     if($valField == '1'){
-                        $active = '<sapn style="color: green;">'.Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_ACTIVE_ACTIVE').'</sapn>';
+                        $active = '<sapn style="color: green;">'.Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_ACTIVE_ACTIVE').'</sapn>';
                     }else{
-                        $active = '<sapn style="color: red;">'.Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_TABLE_HEAD_ACTIVE_NO_ACTIVE').'</sapn>';
+                        $active = '<sapn style="color: red;">'.Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_TABLE_HEAD_ACTIVE_NO_ACTIVE').'</sapn>';
                     }
                     $row->AddViewField($keyField, $active);
                     break;
@@ -269,7 +269,7 @@ if(empty($_REQUEST['id_group'])){
                      * Получаем данные пользовател
                      * */
                     if($valField == 0){
-                        $html = Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_MASSAGE_USER_NO_AUTH');
+                        $html = Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_MASSAGE_USER_NO_AUTH');
                     }else {
                         $rsUser = CUser::GetByID($valField);
                         $arUser = $rsUser->Fetch();
@@ -301,14 +301,14 @@ if(empty($_REQUEST['id_group'])){
             $arActions[] = array(
                 "ICON"      =>  "",
                 "DEFAULT"   =>  false,
-                "TEXT"      =>  Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_ACTION_UNACTIVE_TEXT'),
+                "TEXT"      =>  Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_ACTION_UNACTIVE_TEXT'),
                 "ACTION"    =>  $lAdmin->ActionRedirect('?lang='.LANGUAGE_ID.'&id_group='.htmlspecialchars($_REQUEST['id_group']).'&id_message='.$keyMessage.'&event=unactive')
             );
         }else {
             $arActions[] = array(
                 "ICON" => "",
                 "DEFAULT" => false,
-                "TEXT" => Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_ACTION_ACTIVE_TEXT'),
+                "TEXT" => Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_ACTION_ACTIVE_TEXT'),
                 "ACTION"    =>  $lAdmin->ActionRedirect('?lang='.LANGUAGE_ID.'&id_group='.htmlspecialchars($_REQUEST['id_group']).'&id_message='.$keyMessage.'&event=active')
             );
         }
@@ -316,7 +316,7 @@ if(empty($_REQUEST['id_group'])){
         $arActions[] = array(
             "ICON"      =>  "delete",
             "DEFAULT"   =>  false,
-            "TEXT" => Loc::getMessage('SOOBWA_COMMENTS_ADMIN_LIST_ACTION_DELETE_TEXT'),
+            "TEXT" => Loc::getMessage('FORM_COMMENTS_ADMIN_LIST_ACTION_DELETE_TEXT'),
             "ACTION"    =>  $lAdmin->ActionRedirect('?lang='.LANGUAGE_ID.'&id_group='.htmlspecialchars($_REQUEST['id_group']).'&id_message='.$keyMessage.'&event=delete')
         );
 

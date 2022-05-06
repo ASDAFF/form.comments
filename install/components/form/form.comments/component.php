@@ -11,14 +11,14 @@ Loc::loadLanguageFile(__FILE__);
 
 global $USER;
 
-if(Loader::includeModule("soobwa.comments")){
+if(Loader::includeModule("form.comments")){
     /*
      * Удалить
      * */
     if(htmlspecialchars($_REQUEST['DELETE_COMMENT']) == 'Y' and $USER->IsAdmin()){
         $GLOBALS['APPLICATION']->RestartBuffer();
 
-        \Soobwa\Comments\Api::statusDel(htmlspecialchars($_REQUEST['DELETE_COMMENT_ID']), true);
+        \Form\Comments\Api::statusDel(htmlspecialchars($_REQUEST['DELETE_COMMENT_ID']), true);
         echo json_encode(array('SEND'=>'Y', 'RESULT' => 'DELETE'));
 
         die();
@@ -30,7 +30,7 @@ if(Loader::includeModule("soobwa.comments")){
     if(htmlspecialchars($_REQUEST['ACTIVE_COMMENT']) == 'Y' and $USER->IsAdmin()){
         $GLOBALS['APPLICATION']->RestartBuffer();
 
-        \Soobwa\Comments\Api::statusActive(htmlspecialchars($_REQUEST['ACTIVE_COMMENT_ID']), true);
+        \Form\Comments\Api::statusActive(htmlspecialchars($_REQUEST['ACTIVE_COMMENT_ID']), true);
         echo json_encode(array('SEND'=>'Y', 'RESULT' => 'ACTIVE'));
 
         die();
@@ -66,7 +66,7 @@ if(Loader::includeModule("soobwa.comments")){
             'TEXT' => htmlspecialchars($_REQUEST['TEXT']),
             'DELETE' => false,
         );
-        $_REQUEST['addResult'] = \Soobwa\Comments\Api::addElement($arFields);
+        $_REQUEST['addResult'] = \Form\Comments\Api::addElement($arFields);
 
         if(is_array(htmlspecialchars($_REQUEST['addResult']))){
             echo json_encode(array('SEND'=>'N', 'ERRORS' => htmlspecialchars($_REQUEST['addResult']), 'RESULT' => htmlspecialchars($_REQUEST)));
@@ -133,7 +133,7 @@ if(Loader::includeModule("soobwa.comments")){
         /*
          * Колличество коментариев
          * */
-        $arResult['COUNT_MASSAGE'] = \Soobwa\Comments\Api::getCount($filterParam);
+        $arResult['COUNT_MASSAGE'] = \Form\Comments\Api::getCount($filterParam);
 
         /*
          * Колличество странниц
@@ -155,7 +155,7 @@ if(Loader::includeModule("soobwa.comments")){
             }
         }
 
-        $result = \Soobwa\Comments\Api::getList(array('ID', 'ID_CHAT', 'ACTIVE', 'ID_USER', 'DATA', 'TEXT'), $filterParam, array('ID'=>'DESC'), $arParams['COUNT'], $offset);
+        $result = \Form\Comments\Api::getList(array('ID', 'ID_CHAT', 'ACTIVE', 'ID_USER', 'DATA', 'TEXT'), $filterParam, array('ID'=>'DESC'), $arParams['COUNT'], $offset);
         while ($res = $result->fetch()) {
             /*
              * Получаем дату
@@ -194,7 +194,7 @@ if(Loader::includeModule("soobwa.comments")){
         }
     }
 }else{
-    echo Loc::getMessage("SOOBWA_COMMENTS_COMPONENT_ERROR_NO_MODULE");
+    echo Loc::getMessage("FORM_COMMENTS_COMPONENT_ERROR_NO_MODULE");
 }
 
 $this->IncludeComponentTemplate();

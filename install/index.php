@@ -8,9 +8,9 @@ use Bitrix\Main\Application;
 
 Loc::loadMessages(__FILE__);
 
-Class soobwa_comments extends CModule
+Class form_comments extends CModule
 {
-    var $MODULE_ID = "soobwa.comments";
+    var $MODULE_ID = "form.comments";
     var $MODULE_VERSION;
     var $MODULE_VERSION_DATE;
     var $MODULE_NAME;
@@ -32,22 +32,22 @@ Class soobwa_comments extends CModule
             $this->MODULE_VERSION_DATE = $arModuleVersion["VERSION_DATE"];
         }
 
-        $this->MODULE_NAME = Loc::getMessage('SOOBWA_COMMENTS_INSTALL_INDEX_CONSTRUCT_MODULE_NAME');
-        $this->MODULE_DESCRIPTION = Loc::getMessage('SOOBWA_COMMENTS_INSTALL_INDEX_CONSTRUCT_MODULE_DESCRIPTION');
-        $this->PARTNER_NAME = Loc::getMessage('SOOBWA_COMMENTS_INSTALL_INDEX_CONSTRUCT_PARTNER_NAME');
-        $this->PARTNER_URI = "https://soobwa.ru";
+        $this->MODULE_NAME = Loc::getMessage('FORM_COMMENTS_INSTALL_INDEX_CONSTRUCT_MODULE_NAME');
+        $this->MODULE_DESCRIPTION = Loc::getMessage('FORM_COMMENTS_INSTALL_INDEX_CONSTRUCT_MODULE_DESCRIPTION');
+        $this->PARTNER_NAME = Loc::getMessage('FORM_COMMENTS_INSTALL_INDEX_CONSTRUCT_PARTNER_NAME');
+        $this->PARTNER_URI = "https://asdaff.github.io/";
     }
 
     function InstallDB()
     {
         Loader::includeModule($this->MODULE_ID);
 
-        Base::getInstance('\Soobwa\Comments\CommentsTable')->createDbTable();
+        Base::getInstance('\Form\Comments\CommentsTable')->createDbTable();
 
         /*
          * Сохранил путь к модулю
          * */
-        Option::set("soobwa_comments", "path", $this->GetPath(true));
+        Option::set("form_comments", "path", $this->GetPath(true));
         return true;
     }
 
@@ -55,12 +55,12 @@ Class soobwa_comments extends CModule
     {
         Loader::includeModule($this->MODULE_ID);
 
-        Application::getConnection(\Soobwa\Comments\CommentsTable::getConnectionName())->queryExecute('drop table if exists '.Base::getInstance('\Soobwa\Comments\CommentsTable')->getDbTableName());
+        Application::getConnection(\Form\Comments\CommentsTable::getConnectionName())->queryExecute('drop table if exists '.Base::getInstance('\Form\Comments\CommentsTable')->getDbTableName());
 
         /*
          * Удаляем путь к модулю
          * */
-        Option::delete("soobwa_comments", "path");
+        Option::delete("form_comments", "path");
         return true;
     }
 

@@ -1,8 +1,8 @@
 <?
 
-namespace Soobwa\Comments;
+namespace Form\Comments;
 
-use \Soobwa\Comments\CommentsTable;
+use \Form\Comments\CommentsTable;
 
 class Api
 {

@@ -1,15 +1,15 @@
 <?
-$MESS['SOOBWA_COMMENTS_OPTIONS_AUTH'] = 'Вы не администратор!';
-$MESS['SOOBWA_COMMENTS_OPTIONS_TAB_NAME'] = 'Инструкция';
-$MESS['SOOBWA_COMMENTS_OPTIONS_TAB_TITLE'] = 'Инструкция';
-$MESS['SOOBWA_COMMENTS_OPTIONS_TAB_TEXT'] = '
+$MESS['FORM_COMMENTS_OPTIONS_AUTH'] = 'Вы не администратор!';
+$MESS['FORM_COMMENTS_OPTIONS_TAB_NAME'] = 'Инструкция';
+$MESS['FORM_COMMENTS_OPTIONS_TAB_TITLE'] = 'Инструкция';
+$MESS['FORM_COMMENTS_OPTIONS_TAB_TEXT'] = '
     <h3>Как пользоватся:</h3>
     <p>
         Добавляем компонент на страницу и настраиваем его
         <pre style="background-color: #424242; color: #ffffff; border-radius: 5px">
 
     $APPLICATION->IncludeComponent(
-        "soobwa:soobwa.comments",
+        "form:form.comments",
         ".default",
         Array(
             "AUTH" => "N",

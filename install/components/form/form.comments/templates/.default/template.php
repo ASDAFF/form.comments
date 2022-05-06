@@ -8,7 +8,7 @@ IncludeTemplateLangFile(__FILE__);
 ?>
 
 <div class="body_box">
-    <div id="comments_soobwa">
+    <div id="comments_form">
         <div class="comments_main_box">
             <?if($arResult['COUNT_MASSAGE'] > 0){?>
                 <p class="comments_title"><?=getMessage('COMMENTS_TITLE')?> <span>(<?=$arResult['COUNT_MASSAGE']?>)</span></p>

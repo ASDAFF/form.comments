@@ -3,5 +3,5 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-echo CAdminMessage::ShowNote(Loc::getMessage('SOOBWA_COMMENTS_INSTALL_STEP_MESSAGE'));
+echo CAdminMessage::ShowNote(Loc::getMessage('FORM_COMMENTS_INSTALL_STEP_MESSAGE'));
 ?>

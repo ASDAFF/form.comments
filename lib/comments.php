@@ -1,6 +1,6 @@
 <?
 
-namespace Soobwa\Comments;
+namespace Form\Comments;
 
 use \Bitrix\Main\Entity;
 use \Bitrix\Main\Type;
@@ -9,12 +9,12 @@ class CommentsTable extends Entity\DataManager
 {
     public static function getTableName()
     {
-        return 'soobwa_comments';
+        return 'form_comments';
     }
 
     public static function getUfId()
     {
-        return 'SOOBWA_COMMENTS';
+        return 'FORM_COMMENTS';
     }
 
     public static function getConnectionName()

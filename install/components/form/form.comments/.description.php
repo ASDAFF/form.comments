@@ -5,13 +5,13 @@ use \Bitrix\Main\Localization\Loc;
 Loc::loadLanguageFile(__FILE__);
 
 $arComponentDescription = array(
-    "NAME" => Loc::getMessage("SOOBWA_COMMENTS_DESCRIPTION_NAME"),
-    "DESCRIPTION" => Loc::getMessage("SOOBWA_COMMENTS_DESCRIPTION_DESCRIPTION"),
+    "NAME" => Loc::getMessage("FORM_COMMENTS_DESCRIPTION_NAME"),
+    "DESCRIPTION" => Loc::getMessage("FORM_COMMENTS_DESCRIPTION_DESCRIPTION"),
     "SORT" => 20,
     "CACHE_PATH" => "N",
     "PATH" => array(
-        "ID" => "soobwa",
-        "NAME" => Loc::getMessage("SOOBWA_COMMENTS_DESCRIPTION_PATH_NAME"),
+        "ID" => "form",
+        "NAME" => Loc::getMessage("FORM_COMMENTS_DESCRIPTION_PATH_NAME"),
     ),
 );
 ?>
